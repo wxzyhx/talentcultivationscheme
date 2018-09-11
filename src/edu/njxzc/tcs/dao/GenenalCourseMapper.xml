@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.njxzc.tcs.dao.GenenalCourseMapper">
+  <resultMap id="BaseResultMap" type="edu.njxzc.tcs.bean.GenenalCourse">
+    <id column="coursid" jdbcType="INTEGER" property="coursid" />
+    <result column="coursecode" jdbcType="CHAR" property="coursecode" />
+    <result column="coursename" jdbcType="CHAR" property="coursename" />
+    <result column="courseenglishname" jdbcType="CHAR" property="courseenglishname" />
+    <result column="speciaclass_id" jdbcType="INTEGER" property="speciaclassId" />
+    <result column="courseclassification_id" jdbcType="INTEGER" property="courseclassificationId" />
+    <result column="childcourseclassification_id" jdbcType="INTEGER" property="childcourseclassificationId" />
+    <result column="engineercourseclassification_id" jdbcType="INTEGER" property="engineercourseclassificationId" />
+    <result column="teachingcourseclassification_id" jdbcType="INTEGER" property="teachingcourseclassificationId" />
+    <result column="coursetype" jdbcType="INTEGER" property="coursetype" />
+    <result column="courseclassifcationdesc" jdbcType="VARCHAR" property="courseclassifcationdesc" />
+    <result column="ismajor" jdbcType="INTEGER" property="ismajor" />
+    <result column="isBilingual" jdbcType="INTEGER" property="isbilingual" />
+    <result column="isEnglish" jdbcType="INTEGER" property="isenglish" />
+    <result column="isIndustry" jdbcType="INTEGER" property="isindustry" />
+    <result column="isInternational" jdbcType="INTEGER" property="isinternational" />
+    <result column="totalcredit" jdbcType="REAL" property="totalcredit" />
+    <result column="theorycredit" jdbcType="REAL" property="theorycredit" />
+    <result column="practicalcredit" jdbcType="REAL" property="practicalcredit" />
+    <result column="term" jdbcType="INTEGER" property="term" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="created_user_sn" jdbcType="CHAR" property="createdUserSn" />
+    <result column="modified_user_sn" jdbcType="CHAR" property="modifiedUserSn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    coursid, coursecode, coursename, courseenglishname, speciaclass_id, courseclassification_id, 
+    childcourseclassification_id, engineercourseclassification_id, teachingcourseclassification_id, 
+    coursetype, courseclassifcationdesc, ismajor, isBilingual, isEnglish, isIndustry, 
+    isInternational, totalcredit, theorycredit, practicalcredit, term, remark, gmt_create, 
+    gmt_modified, created_user_sn, modified_user_sn
+  </sql>
+  <select id="selectByExample" parameterType="edu.njxzc.tcs.bean.GenenalCourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from genenalcourse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from genenalcourse
+    where coursid = #{coursid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from genenalcourse
+    where coursid = #{coursid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.njxzc.tcs.bean.GenenalCourseExample">
+    delete from genenalcourse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njxzc.tcs.bean.GenenalCourse">
+    insert into genenalcourse (coursid, coursecode, coursename, 
+      courseenglishname, speciaclass_id, courseclassification_id, 
+      childcourseclassification_id, engineercourseclassification_id, 
+      teachingcourseclassification_id, coursetype, 
+      courseclassifcationdesc, ismajor, isBilingual, 
+      isEnglish, isIndustry, isInternational, 
+      totalcredit, theorycredit, practicalcredit, 
+      term, remark, gmt_create, 
+      gmt_modified, created_user_sn, modified_user_sn
+      )
+    values (#{coursid,jdbcType=INTEGER}, #{coursecode,jdbcType=CHAR}, #{coursename,jdbcType=CHAR}, 
+      #{courseenglishname,jdbcType=CHAR}, #{speciaclassId,jdbcType=INTEGER}, #{courseclassificationId,jdbcType=INTEGER}, 
+      #{childcourseclassificationId,jdbcType=INTEGER}, #{engineercourseclassificationId,jdbcType=INTEGER}, 
+      #{teachingcourseclassificationId,jdbcType=INTEGER}, #{coursetype,jdbcType=INTEGER}, 
+      #{courseclassifcationdesc,jdbcType=VARCHAR}, #{ismajor,jdbcType=INTEGER}, #{isbilingual,jdbcType=INTEGER}, 
+      #{isenglish,jdbcType=INTEGER}, #{isindustry,jdbcType=INTEGER}, #{isinternational,jdbcType=INTEGER}, 
+      #{totalcredit,jdbcType=REAL}, #{theorycredit,jdbcType=REAL}, #{practicalcredit,jdbcType=REAL}, 
+      #{term,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{createdUserSn,jdbcType=CHAR}, #{modifiedUserSn,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njxzc.tcs.bean.GenenalCourse">
+    insert into genenalcourse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="coursid != null">
+        coursid,
+      </if>
+      <if test="coursecode != null">
+        coursecode,
+      </if>
+      <if test="coursename != null">
+        coursename,
+      </if>
+      <if test="courseenglishname != null">
+        courseenglishname,
+      </if>
+      <if test="speciaclassId != null">
+        speciaclass_id,
+      </if>
+      <if test="courseclassificationId != null">
+        courseclassification_id,
+      </if>
+      <if test="childcourseclassificationId != null">
+        childcourseclassification_id,
+      </if>
+      <if test="engineercourseclassificationId != null">
+        engineercourseclassification_id,
+      </if>
+      <if test="teachingcourseclassificationId != null">
+        teachingcourseclassification_id,
+      </if>
+      <if test="coursetype != null">
+        coursetype,
+      </if>
+      <if test="courseclassifcationdesc != null">
+        courseclassifcationdesc,
+      </if>
+      <if test="ismajor != null">
+        ismajor,
+      </if>
+      <if test="isbilingual != null">
+        isBilingual,
+      </if>
+      <if test="isenglish != null">
+        isEnglish,
+      </if>
+      <if test="isindustry != null">
+        isIndustry,
+      </if>
+      <if test="isinternational != null">
+        isInternational,
+      </if>
+      <if test="totalcredit != null">
+        totalcredit,
+      </if>
+      <if test="theorycredit != null">
+        theorycredit,
+      </if>
+      <if test="practicalcredit != null">
+        practicalcredit,
+      </if>
+      <if test="term != null">
+        term,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="createdUserSn != null">
+        created_user_sn,
+      </if>
+      <if test="modifiedUserSn != null">
+        modified_user_sn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="coursid != null">
+        #{coursid,jdbcType=INTEGER},
+      </if>
+      <if test="coursecode != null">
+        #{coursecode,jdbcType=CHAR},
+      </if>
+      <if test="coursename != null">
+        #{coursename,jdbcType=CHAR},
+      </if>
+      <if test="courseenglishname != null">
+        #{courseenglishname,jdbcType=CHAR},
+      </if>
+      <if test="speciaclassId != null">
+        #{speciaclassId,jdbcType=INTEGER},
+      </if>
+      <if test="courseclassificationId != null">
+        #{courseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="childcourseclassificationId != null">
+        #{childcourseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="engineercourseclassificationId != null">
+        #{engineercourseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="teachingcourseclassificationId != null">
+        #{teachingcourseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="coursetype != null">
+        #{coursetype,jdbcType=INTEGER},
+      </if>
+      <if test="courseclassifcationdesc != null">
+        #{courseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ismajor != null">
+        #{ismajor,jdbcType=INTEGER},
+      </if>
+      <if test="isbilingual != null">
+        #{isbilingual,jdbcType=INTEGER},
+      </if>
+      <if test="isenglish != null">
+        #{isenglish,jdbcType=INTEGER},
+      </if>
+      <if test="isindustry != null">
+        #{isindustry,jdbcType=INTEGER},
+      </if>
+      <if test="isinternational != null">
+        #{isinternational,jdbcType=INTEGER},
+      </if>
+      <if test="totalcredit != null">
+        #{totalcredit,jdbcType=REAL},
+      </if>
+      <if test="theorycredit != null">
+        #{theorycredit,jdbcType=REAL},
+      </if>
+      <if test="practicalcredit != null">
+        #{practicalcredit,jdbcType=REAL},
+      </if>
+      <if test="term != null">
+        #{term,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUserSn != null">
+        #{createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="modifiedUserSn != null">
+        #{modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njxzc.tcs.bean.GenenalCourseExample" resultType="java.lang.Long">
+    select count(*) from genenalcourse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update genenalcourse
+    <set>
+      <if test="record.coursid != null">
+        coursid = #{record.coursid,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursecode != null">
+        coursecode = #{record.coursecode,jdbcType=CHAR},
+      </if>
+      <if test="record.coursename != null">
+        coursename = #{record.coursename,jdbcType=CHAR},
+      </if>
+      <if test="record.courseenglishname != null">
+        courseenglishname = #{record.courseenglishname,jdbcType=CHAR},
+      </if>
+      <if test="record.speciaclassId != null">
+        speciaclass_id = #{record.speciaclassId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseclassificationId != null">
+        courseclassification_id = #{record.courseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.childcourseclassificationId != null">
+        childcourseclassification_id = #{record.childcourseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.engineercourseclassificationId != null">
+        engineercourseclassification_id = #{record.engineercourseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.teachingcourseclassificationId != null">
+        teachingcourseclassification_id = #{record.teachingcourseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursetype != null">
+        coursetype = #{record.coursetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseclassifcationdesc != null">
+        courseclassifcationdesc = #{record.courseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ismajor != null">
+        ismajor = #{record.ismajor,jdbcType=INTEGER},
+      </if>
+      <if test="record.isbilingual != null">
+        isBilingual = #{record.isbilingual,jdbcType=INTEGER},
+      </if>
+      <if test="record.isenglish != null">
+        isEnglish = #{record.isenglish,jdbcType=INTEGER},
+      </if>
+      <if test="record.isindustry != null">
+        isIndustry = #{record.isindustry,jdbcType=INTEGER},
+      </if>
+      <if test="record.isinternational != null">
+        isInternational = #{record.isinternational,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalcredit != null">
+        totalcredit = #{record.totalcredit,jdbcType=REAL},
+      </if>
+      <if test="record.theorycredit != null">
+        theorycredit = #{record.theorycredit,jdbcType=REAL},
+      </if>
+      <if test="record.practicalcredit != null">
+        practicalcredit = #{record.practicalcredit,jdbcType=REAL},
+      </if>
+      <if test="record.term != null">
+        term = #{record.term,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdUserSn != null">
+        created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="record.modifiedUserSn != null">
+        modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update genenalcourse
+    set coursid = #{record.coursid,jdbcType=INTEGER},
+      coursecode = #{record.coursecode,jdbcType=CHAR},
+      coursename = #{record.coursename,jdbcType=CHAR},
+      courseenglishname = #{record.courseenglishname,jdbcType=CHAR},
+      speciaclass_id = #{record.speciaclassId,jdbcType=INTEGER},
+      courseclassification_id = #{record.courseclassificationId,jdbcType=INTEGER},
+      childcourseclassification_id = #{record.childcourseclassificationId,jdbcType=INTEGER},
+      engineercourseclassification_id = #{record.engineercourseclassificationId,jdbcType=INTEGER},
+      teachingcourseclassification_id = #{record.teachingcourseclassificationId,jdbcType=INTEGER},
+      coursetype = #{record.coursetype,jdbcType=INTEGER},
+      courseclassifcationdesc = #{record.courseclassifcationdesc,jdbcType=VARCHAR},
+      ismajor = #{record.ismajor,jdbcType=INTEGER},
+      isBilingual = #{record.isbilingual,jdbcType=INTEGER},
+      isEnglish = #{record.isenglish,jdbcType=INTEGER},
+      isIndustry = #{record.isindustry,jdbcType=INTEGER},
+      isInternational = #{record.isinternational,jdbcType=INTEGER},
+      totalcredit = #{record.totalcredit,jdbcType=REAL},
+      theorycredit = #{record.theorycredit,jdbcType=REAL},
+      practicalcredit = #{record.practicalcredit,jdbcType=REAL},
+      term = #{record.term,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njxzc.tcs.bean.GenenalCourse">
+    update genenalcourse
+    <set>
+      <if test="coursecode != null">
+        coursecode = #{coursecode,jdbcType=CHAR},
+      </if>
+      <if test="coursename != null">
+        coursename = #{coursename,jdbcType=CHAR},
+      </if>
+      <if test="courseenglishname != null">
+        courseenglishname = #{courseenglishname,jdbcType=CHAR},
+      </if>
+      <if test="speciaclassId != null">
+        speciaclass_id = #{speciaclassId,jdbcType=INTEGER},
+      </if>
+      <if test="courseclassificationId != null">
+        courseclassification_id = #{courseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="childcourseclassificationId != null">
+        childcourseclassification_id = #{childcourseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="engineercourseclassificationId != null">
+        engineercourseclassification_id = #{engineercourseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="teachingcourseclassificationId != null">
+        teachingcourseclassification_id = #{teachingcourseclassificationId,jdbcType=INTEGER},
+      </if>
+      <if test="coursetype != null">
+        coursetype = #{coursetype,jdbcType=INTEGER},
+      </if>
+      <if test="courseclassifcationdesc != null">
+        courseclassifcationdesc = #{courseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ismajor != null">
+        ismajor = #{ismajor,jdbcType=INTEGER},
+      </if>
+      <if test="isbilingual != null">
+        isBilingual = #{isbilingual,jdbcType=INTEGER},
+      </if>
+      <if test="isenglish != null">
+        isEnglish = #{isenglish,jdbcType=INTEGER},
+      </if>
+      <if test="isindustry != null">
+        isIndustry = #{isindustry,jdbcType=INTEGER},
+      </if>
+      <if test="isinternational != null">
+        isInternational = #{isinternational,jdbcType=INTEGER},
+      </if>
+      <if test="totalcredit != null">
+        totalcredit = #{totalcredit,jdbcType=REAL},
+      </if>
+      <if test="theorycredit != null">
+        theorycredit = #{theorycredit,jdbcType=REAL},
+      </if>
+      <if test="practicalcredit != null">
+        practicalcredit = #{practicalcredit,jdbcType=REAL},
+      </if>
+      <if test="term != null">
+        term = #{term,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUserSn != null">
+        created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="modifiedUserSn != null">
+        modified_user_sn = #{modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </set>
+    where coursid = #{coursid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njxzc.tcs.bean.GenenalCourse">
+    update genenalcourse
+    set coursecode = #{coursecode,jdbcType=CHAR},
+      coursename = #{coursename,jdbcType=CHAR},
+      courseenglishname = #{courseenglishname,jdbcType=CHAR},
+      speciaclass_id = #{speciaclassId,jdbcType=INTEGER},
+      courseclassification_id = #{courseclassificationId,jdbcType=INTEGER},
+      childcourseclassification_id = #{childcourseclassificationId,jdbcType=INTEGER},
+      engineercourseclassification_id = #{engineercourseclassificationId,jdbcType=INTEGER},
+      teachingcourseclassification_id = #{teachingcourseclassificationId,jdbcType=INTEGER},
+      coursetype = #{coursetype,jdbcType=INTEGER},
+      courseclassifcationdesc = #{courseclassifcationdesc,jdbcType=VARCHAR},
+      ismajor = #{ismajor,jdbcType=INTEGER},
+      isBilingual = #{isbilingual,jdbcType=INTEGER},
+      isEnglish = #{isenglish,jdbcType=INTEGER},
+      isIndustry = #{isindustry,jdbcType=INTEGER},
+      isInternational = #{isinternational,jdbcType=INTEGER},
+      totalcredit = #{totalcredit,jdbcType=REAL},
+      theorycredit = #{theorycredit,jdbcType=REAL},
+      practicalcredit = #{practicalcredit,jdbcType=REAL},
+      term = #{term,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{modifiedUserSn,jdbcType=CHAR}
+    where coursid = #{coursid,jdbcType=INTEGER}
+  </update>
+</mapper>

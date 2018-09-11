@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.njxzc.tcs.dao.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="edu.njxzc.tcs.bean.UserRole">
+    <id column="sn" jdbcType="CHAR" property="sn" />
+    <id column="role_code" jdbcType="CHAR" property="roleCode" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="created_user_sn" jdbcType="CHAR" property="createdUserSn" />
+    <result column="modified_user_sn" jdbcType="CHAR" property="modifiedUserSn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    sn, role_code, gmt_create, gmt_modified, created_user_sn, modified_user_sn
+  </sql>
+  <select id="selectByExample" parameterType="edu.njxzc.tcs.bean.UserRoleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user_role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="edu.njxzc.tcs.bean.UserRoleKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_role
+    where sn = #{sn,jdbcType=CHAR}
+      and role_code = #{roleCode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="edu.njxzc.tcs.bean.UserRoleKey">
+    delete from user_role
+    where sn = #{sn,jdbcType=CHAR}
+      and role_code = #{roleCode,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.njxzc.tcs.bean.UserRoleExample">
+    delete from user_role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njxzc.tcs.bean.UserRole">
+    insert into user_role (sn, role_code, gmt_create, 
+      gmt_modified, created_user_sn, modified_user_sn
+      )
+    values (#{sn,jdbcType=CHAR}, #{roleCode,jdbcType=CHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{createdUserSn,jdbcType=CHAR}, #{modifiedUserSn,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njxzc.tcs.bean.UserRole">
+    insert into user_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="roleCode != null">
+        role_code,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="createdUserSn != null">
+        created_user_sn,
+      </if>
+      <if test="modifiedUserSn != null">
+        modified_user_sn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        #{sn,jdbcType=CHAR},
+      </if>
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=CHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUserSn != null">
+        #{createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="modifiedUserSn != null">
+        #{modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njxzc.tcs.bean.UserRoleExample" resultType="java.lang.Long">
+    select count(*) from user_role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_role
+    <set>
+      <if test="record.sn != null">
+        sn = #{record.sn,jdbcType=CHAR},
+      </if>
+      <if test="record.roleCode != null">
+        role_code = #{record.roleCode,jdbcType=CHAR},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdUserSn != null">
+        created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="record.modifiedUserSn != null">
+        modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_role
+    set sn = #{record.sn,jdbcType=CHAR},
+      role_code = #{record.roleCode,jdbcType=CHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njxzc.tcs.bean.UserRole">
+    update user_role
+    <set>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUserSn != null">
+        created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="modifiedUserSn != null">
+        modified_user_sn = #{modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </set>
+    where sn = #{sn,jdbcType=CHAR}
+      and role_code = #{roleCode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njxzc.tcs.bean.UserRole">
+    update user_role
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{modifiedUserSn,jdbcType=CHAR}
+    where sn = #{sn,jdbcType=CHAR}
+      and role_code = #{roleCode,jdbcType=CHAR}
+  </update>
+</mapper>

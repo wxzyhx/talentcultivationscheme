@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.njxzc.tcs.dao.TeacherMapper">
+  <resultMap id="BaseResultMap" type="edu.njxzc.tcs.bean.Teacher">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="teacher_ID" jdbcType="CHAR" property="teacher_ID" />
+    <result column="teacher_status" jdbcType="SMALLINT" property="teacher_status" />
+    <result column="password" jdbcType="CHAR" property="password" />
+    <result column="teacher_name" jdbcType="CHAR" property="teacher_name" />
+    <result column="teacher_class" jdbcType="CHAR" property="teacher_class" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmt_create" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmt_modified" />
+    <result column="modified_user_ID" jdbcType="INTEGER" property="modified_user_ID" />
+    <result column="created_user_ID" jdbcType="INTEGER" property="created_user_ID" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, teacher_ID, teacher_status, password, teacher_name, teacher_class, gmt_create, 
+    gmt_modified, modified_user_ID, created_user_ID
+  </sql>
+  <select id="selectByExample" parameterType="edu.njxzc.tcs.bean.TeacherExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_teacher
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_teacher
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_teacher
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.njxzc.tcs.bean.Teacher" useGeneratedKeys="true">
+    insert into t_teacher (teacher_ID, teacher_status, password, 
+      teacher_name, teacher_class, gmt_create, 
+      gmt_modified, modified_user_ID, created_user_ID
+      )
+    values (#{teacher_ID,jdbcType=CHAR}, #{teacher_status,jdbcType=SMALLINT}, #{password,jdbcType=CHAR}, 
+      #{teacher_name,jdbcType=CHAR}, #{teacher_class,jdbcType=CHAR}, #{gmt_create,jdbcType=TIMESTAMP}, 
+      #{gmt_modified,jdbcType=TIMESTAMP}, #{modified_user_ID,jdbcType=INTEGER}, #{created_user_ID,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.njxzc.tcs.bean.Teacher" useGeneratedKeys="true">
+    insert into t_teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teacher_ID != null">
+        teacher_ID,
+      </if>
+      <if test="teacher_status != null">
+        teacher_status,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="teacher_name != null">
+        teacher_name,
+      </if>
+      <if test="teacher_class != null">
+        teacher_class,
+      </if>
+      <if test="gmt_create != null">
+        gmt_create,
+      </if>
+      <if test="gmt_modified != null">
+        gmt_modified,
+      </if>
+      <if test="modified_user_ID != null">
+        modified_user_ID,
+      </if>
+      <if test="created_user_ID != null">
+        created_user_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teacher_ID != null">
+        #{teacher_ID,jdbcType=CHAR},
+      </if>
+      <if test="teacher_status != null">
+        #{teacher_status,jdbcType=SMALLINT},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="teacher_name != null">
+        #{teacher_name,jdbcType=CHAR},
+      </if>
+      <if test="teacher_class != null">
+        #{teacher_class,jdbcType=CHAR},
+      </if>
+      <if test="gmt_create != null">
+        #{gmt_create,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmt_modified != null">
+        #{gmt_modified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified_user_ID != null">
+        #{modified_user_ID,jdbcType=INTEGER},
+      </if>
+      <if test="created_user_ID != null">
+        #{created_user_ID,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njxzc.tcs.bean.Teacher">
+    update t_teacher
+    <set>
+      <if test="teacher_ID != null">
+        teacher_ID = #{teacher_ID,jdbcType=CHAR},
+      </if>
+      <if test="teacher_status != null">
+        teacher_status = #{teacher_status,jdbcType=SMALLINT},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=CHAR},
+      </if>
+      <if test="teacher_name != null">
+        teacher_name = #{teacher_name,jdbcType=CHAR},
+      </if>
+      <if test="teacher_class != null">
+        teacher_class = #{teacher_class,jdbcType=CHAR},
+      </if>
+      <if test="gmt_create != null">
+        gmt_create = #{gmt_create,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmt_modified != null">
+        gmt_modified = #{gmt_modified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified_user_ID != null">
+        modified_user_ID = #{modified_user_ID,jdbcType=INTEGER},
+      </if>
+      <if test="created_user_ID != null">
+        created_user_ID = #{created_user_ID,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njxzc.tcs.bean.Teacher">
+    update t_teacher
+    set teacher_ID = #{teacher_ID,jdbcType=CHAR},
+      teacher_status = #{teacher_status,jdbcType=SMALLINT},
+      password = #{password,jdbcType=CHAR},
+      teacher_name = #{teacher_name,jdbcType=CHAR},
+      teacher_class = #{teacher_class,jdbcType=CHAR},
+      gmt_create = #{gmt_create,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmt_modified,jdbcType=TIMESTAMP},
+      modified_user_ID = #{modified_user_ID,jdbcType=INTEGER},
+      created_user_ID = #{created_user_ID,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+    
+   <!-- 定义相关系统参数，便于全局使用 -->
+    <bean id="sysEnvironment" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <!--系统名称-->
+                <entry key="SystemTitle">
+                    <value>系统管理平台</value>
+                </entry>
+                <!--分页大小-->
+                <entry key="pageSize">
+                    <value>10</value>
+                </entry>
+                <!--提示标志：0:不提示，1：提示-->
+                <entry key="tipFlag">
+                    <value>1</value>
+                </entry>
+                <!--分页查询表单名称-->
+                <entry key="searchFormName">
+                    <value>searchFormForPage</value>
+                </entry>
+                <!--分页查询表单分页元素名称-->
+                <entry key="inputPageNum">
+                    <value>pagenum</value>
+                </entry>
+                <!--页面参数编码方式-->
+                <entry key="beforeTransEncode.get">
+                    <value>ISO-8859-1</value>
+                </entry>
+                <entry key="afterTransEncode.get">
+                    <value>UTF-8</value>
+                </entry>
+                <!--上传附件页面参数编码方式-->
+                <entry key="FileBeforeTransEncode">
+                    <value>ISO-8859-1</value>
+                </entry>
+                <entry key="FileAfterTransEncode">
+                    <value>UTF-8</value>
+                </entry>
+                <entry key="CATEGORY_ROOT_ID">
+                    <value>0</value>
+                </entry>
+                <entry key="DEPT_ROOT_ID">
+                    <value>0</value>
+                </entry>
+                <entry key="MENU_ROOT_ID">
+                    <value>0</value>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+    
+
+  <!-- 定义调用系统参数的工具类 -->
+    <bean id="toolsUtils" class="edu.njxzc.tcs.util.ConstantUtils">
+        <constructor-arg>
+            <value>开始初始化系统环境对象</value>
+        </constructor-arg>
+        <property name="sysEnvironment">
+            <ref bean="sysEnvironment"/>
+        </property>
+    </bean>
+    
+   <!--  <bean id="returnCode" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="0000"><value>成功</value></entry>
+                <entry key="1001"><value>尚未登录</value></entry>
+                <entry key="1002"><value>超时重新登录</value></entry>
+                <entry key="1003"><value>无效账号</value></entry>
+                <entry key="2001"><value>用户不存在</value></entry>
+                <entry key="2002"><value>密码错误</value></entry>
+                <entry key="2003"><value>用户已经被禁用</value></entry>
+                <entry key="2004"><value>用户名或密码为空</value></entry>
+                <entry key="9999"><value>系统错误</value></entry>
+            </map>
+        </constructor-arg>
+    </bean> -->
+     
+</beans>

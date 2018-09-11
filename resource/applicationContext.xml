@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"
+			default-autowire="byName">
+	
+	
+	<!-- 加载其他相关配置文件 -->
+	<import resource="applicationContext-*.xml"/>
+	<!-- 注解扫描 -->
+	<context:component-scan base-package="edu.njxzc.tcs"></context:component-scan>
+	<!-- controller事务配置 -->
+	<tx:annotation-driven/>
+	<!-- 日期格式转换 -->
+	<mvc:annotation-driven conversion-service="conversionService"/>
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="edu.njxzc.tcs.util.basicutils.DateConverters" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 启动Spring MVC的视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+    	<property name="order" value="1" />  
+    </bean>
+    <!-- json视图解析 -->
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"> 
+    	<property name="contentType" value="application/json"/> 
+	</bean> 
+	<!-- 解析jsp等页面 -->
+ 	<bean  
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		 p:suffix=".jsp"/>
+	<!-- 增加统一的异常处理类 -->
+	<bean id="handlerExceptionResolver" class="edu.njxzc.tcs.util.exceptionHandle.ExceptionHandler"/>
+	
+	<!--配合@ResponseBody注解返回json数据  -->
+    <bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+
+	<!-- 可以自定义返回json数据的处理方式，本项目暂未使用 -->
+	<!--  
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonConverter"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="jsonConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes" value="application/json;charset=UTF-8"/>
+    </bean>  -->
+    
+	<!-- 读取jdbc配置文件，本项目暂未使用 -->
+	<!--  <bean id="propertyPlaceholderConfigurerJdbc"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	-->
+	
+    <!-- 读取其他配置文件，本项目暂未使用 -->
+ 	<!--     
+ 	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	<property name="locations">
+		<list>
+			<value>classpath:prop.properties</value>
+		</list>
+	</property> 
+   </bean> --> 
+</beans>

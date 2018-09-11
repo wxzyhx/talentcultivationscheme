@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.njxzc.tcs.dao.CourseClassificationMapper">
+  <resultMap id="BaseResultMap" type="edu.njxzc.tcs.bean.CourseClassification">
+    <id column="courseclassificationid" jdbcType="INTEGER" property="courseclassificationid" />
+    <result column="courseclassificationname" jdbcType="CHAR" property="courseclassificationname" />
+    <result column="courseclassifcationdesc" jdbcType="VARCHAR" property="courseclassifcationdesc" />
+    <result column="coursecreditrule" jdbcType="REAL" property="coursecreditrule" />
+    <result column="speciaclass_id" jdbcType="INTEGER" property="speciaclassId" />
+    <result column="cultivationscheme_id" jdbcType="INTEGER" property="cultivationschemeId" />
+    <result column="orderby" jdbcType="INTEGER" property="orderby" />
+    <result column="coursetag" jdbcType="INTEGER" property="coursetag" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="created_user_sn" jdbcType="CHAR" property="createdUserSn" />
+    <result column="modified_user_sn" jdbcType="CHAR" property="modifiedUserSn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    courseclassificationid, courseclassificationname, courseclassifcationdesc, coursecreditrule, 
+    speciaclass_id, cultivationscheme_id, orderby, coursetag, gmt_create, gmt_modified, 
+    created_user_sn, modified_user_sn
+  </sql>
+  <select id="selectByExample" parameterType="edu.njxzc.tcs.bean.CourseClassificationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from courseclassification
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from courseclassification
+    where courseclassificationid = #{courseclassificationid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from courseclassification
+    where courseclassificationid = #{courseclassificationid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.njxzc.tcs.bean.CourseClassificationExample">
+    delete from courseclassification
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njxzc.tcs.bean.CourseClassification">
+    insert into courseclassification (courseclassificationid, courseclassificationname, 
+      courseclassifcationdesc, coursecreditrule, 
+      speciaclass_id, cultivationscheme_id, orderby, 
+      coursetag, gmt_create, gmt_modified, 
+      created_user_sn, modified_user_sn)
+    values (#{courseclassificationid,jdbcType=INTEGER}, #{courseclassificationname,jdbcType=CHAR}, 
+      #{courseclassifcationdesc,jdbcType=VARCHAR}, #{coursecreditrule,jdbcType=REAL}, 
+      #{speciaclassId,jdbcType=INTEGER}, #{cultivationschemeId,jdbcType=INTEGER}, #{orderby,jdbcType=INTEGER}, 
+      #{coursetag,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{createdUserSn,jdbcType=CHAR}, #{modifiedUserSn,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njxzc.tcs.bean.CourseClassification">
+    insert into courseclassification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseclassificationid != null">
+        courseclassificationid,
+      </if>
+      <if test="courseclassificationname != null">
+        courseclassificationname,
+      </if>
+      <if test="courseclassifcationdesc != null">
+        courseclassifcationdesc,
+      </if>
+      <if test="coursecreditrule != null">
+        coursecreditrule,
+      </if>
+      <if test="speciaclassId != null">
+        speciaclass_id,
+      </if>
+      <if test="cultivationschemeId != null">
+        cultivationscheme_id,
+      </if>
+      <if test="orderby != null">
+        orderby,
+      </if>
+      <if test="coursetag != null">
+        coursetag,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="createdUserSn != null">
+        created_user_sn,
+      </if>
+      <if test="modifiedUserSn != null">
+        modified_user_sn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseclassificationid != null">
+        #{courseclassificationid,jdbcType=INTEGER},
+      </if>
+      <if test="courseclassificationname != null">
+        #{courseclassificationname,jdbcType=CHAR},
+      </if>
+      <if test="courseclassifcationdesc != null">
+        #{courseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="coursecreditrule != null">
+        #{coursecreditrule,jdbcType=REAL},
+      </if>
+      <if test="speciaclassId != null">
+        #{speciaclassId,jdbcType=INTEGER},
+      </if>
+      <if test="cultivationschemeId != null">
+        #{cultivationschemeId,jdbcType=INTEGER},
+      </if>
+      <if test="orderby != null">
+        #{orderby,jdbcType=INTEGER},
+      </if>
+      <if test="coursetag != null">
+        #{coursetag,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUserSn != null">
+        #{createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="modifiedUserSn != null">
+        #{modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njxzc.tcs.bean.CourseClassificationExample" resultType="java.lang.Long">
+    select count(*) from courseclassification
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update courseclassification
+    <set>
+      <if test="record.courseclassificationid != null">
+        courseclassificationid = #{record.courseclassificationid,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseclassificationname != null">
+        courseclassificationname = #{record.courseclassificationname,jdbcType=CHAR},
+      </if>
+      <if test="record.courseclassifcationdesc != null">
+        courseclassifcationdesc = #{record.courseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursecreditrule != null">
+        coursecreditrule = #{record.coursecreditrule,jdbcType=REAL},
+      </if>
+      <if test="record.speciaclassId != null">
+        speciaclass_id = #{record.speciaclassId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cultivationschemeId != null">
+        cultivationscheme_id = #{record.cultivationschemeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderby != null">
+        orderby = #{record.orderby,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursetag != null">
+        coursetag = #{record.coursetag,jdbcType=INTEGER},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdUserSn != null">
+        created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="record.modifiedUserSn != null">
+        modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update courseclassification
+    set courseclassificationid = #{record.courseclassificationid,jdbcType=INTEGER},
+      courseclassificationname = #{record.courseclassificationname,jdbcType=CHAR},
+      courseclassifcationdesc = #{record.courseclassifcationdesc,jdbcType=VARCHAR},
+      coursecreditrule = #{record.coursecreditrule,jdbcType=REAL},
+      speciaclass_id = #{record.speciaclassId,jdbcType=INTEGER},
+      cultivationscheme_id = #{record.cultivationschemeId,jdbcType=INTEGER},
+      orderby = #{record.orderby,jdbcType=INTEGER},
+      coursetag = #{record.coursetag,jdbcType=INTEGER},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njxzc.tcs.bean.CourseClassification">
+    update courseclassification
+    <set>
+      <if test="courseclassificationname != null">
+        courseclassificationname = #{courseclassificationname,jdbcType=CHAR},
+      </if>
+      <if test="courseclassifcationdesc != null">
+        courseclassifcationdesc = #{courseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="coursecreditrule != null">
+        coursecreditrule = #{coursecreditrule,jdbcType=REAL},
+      </if>
+      <if test="speciaclassId != null">
+        speciaclass_id = #{speciaclassId,jdbcType=INTEGER},
+      </if>
+      <if test="cultivationschemeId != null">
+        cultivationscheme_id = #{cultivationschemeId,jdbcType=INTEGER},
+      </if>
+      <if test="orderby != null">
+        orderby = #{orderby,jdbcType=INTEGER},
+      </if>
+      <if test="coursetag != null">
+        coursetag = #{coursetag,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUserSn != null">
+        created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="modifiedUserSn != null">
+        modified_user_sn = #{modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </set>
+    where courseclassificationid = #{courseclassificationid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njxzc.tcs.bean.CourseClassification">
+    update courseclassification
+    set courseclassificationname = #{courseclassificationname,jdbcType=CHAR},
+      courseclassifcationdesc = #{courseclassifcationdesc,jdbcType=VARCHAR},
+      coursecreditrule = #{coursecreditrule,jdbcType=REAL},
+      speciaclass_id = #{speciaclassId,jdbcType=INTEGER},
+      cultivationscheme_id = #{cultivationschemeId,jdbcType=INTEGER},
+      orderby = #{orderby,jdbcType=INTEGER},
+      coursetag = #{coursetag,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{modifiedUserSn,jdbcType=CHAR}
+    where courseclassificationid = #{courseclassificationid,jdbcType=INTEGER}
+  </update>
+</mapper>

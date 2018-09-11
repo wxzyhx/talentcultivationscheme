@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.njxzc.tcs.dao.RequirementMapper">
+  <resultMap id="BaseResultMap" type="edu.njxzc.tcs.bean.Requirement">
+    <id column="requirementid" jdbcType="INTEGER" property="requirementid" />
+    <result column="requirementname" jdbcType="CHAR" property="requirementname" />
+    <result column="cultivationscheme_id" jdbcType="INTEGER" property="cultivationschemeId" />
+    <result column="objectiveItems" jdbcType="VARCHAR" property="objectiveitems" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="created_user_sn" jdbcType="CHAR" property="createdUserSn" />
+    <result column="modified_user_sn" jdbcType="CHAR" property="modifiedUserSn" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="edu.njxzc.tcs.bean.Requirement">
+    <result column="requirementdesc" jdbcType="LONGVARCHAR" property="requirementdesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    requirementid, requirementname, cultivationscheme_id, objectiveItems, gmt_create, 
+    gmt_modified, created_user_sn, modified_user_sn
+  </sql>
+  <sql id="Blob_Column_List">
+    requirementdesc
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="edu.njxzc.tcs.bean.RequirementExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from requirement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="edu.njxzc.tcs.bean.RequirementExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from requirement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from requirement
+    where requirementid = #{requirementid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from requirement
+    where requirementid = #{requirementid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.njxzc.tcs.bean.RequirementExample">
+    delete from requirement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njxzc.tcs.bean.Requirement"
+  		useGeneratedKeys="true" keyColumn="requirementid" keyProperty="requirementid">
+    insert into requirement (requirementid, requirementname, cultivationscheme_id, 
+      objectiveItems, gmt_create, gmt_modified, 
+      created_user_sn, modified_user_sn, requirementdesc
+      )
+    values (#{requirementid,jdbcType=INTEGER}, #{requirementname,jdbcType=CHAR}, #{cultivationschemeId,jdbcType=INTEGER}, 
+      #{objectiveitems,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{createdUserSn,jdbcType=CHAR}, #{modifiedUserSn,jdbcType=CHAR}, #{requirementdesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njxzc.tcs.bean.Requirement">
+    insert into requirement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="requirementid != null">
+        requirementid,
+      </if>
+      <if test="requirementname != null">
+        requirementname,
+      </if>
+      <if test="cultivationschemeId != null">
+        cultivationscheme_id,
+      </if>
+      <if test="objectiveitems != null">
+        objectiveItems,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="createdUserSn != null">
+        created_user_sn,
+      </if>
+      <if test="modifiedUserSn != null">
+        modified_user_sn,
+      </if>
+      <if test="requirementdesc != null">
+        requirementdesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="requirementid != null">
+        #{requirementid,jdbcType=INTEGER},
+      </if>
+      <if test="requirementname != null">
+        #{requirementname,jdbcType=CHAR},
+      </if>
+      <if test="cultivationschemeId != null">
+        #{cultivationschemeId,jdbcType=INTEGER},
+      </if>
+      <if test="objectiveitems != null">
+        #{objectiveitems,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUserSn != null">
+        #{createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="modifiedUserSn != null">
+        #{modifiedUserSn,jdbcType=CHAR},
+      </if>
+      <if test="requirementdesc != null">
+        #{requirementdesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njxzc.tcs.bean.RequirementExample" resultType="java.lang.Long">
+    select count(*) from requirement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update requirement
+    <set>
+      <if test="record.requirementid != null">
+        requirementid = #{record.requirementid,jdbcType=INTEGER},
+      </if>
+      <if test="record.requirementname != null">
+        requirementname = #{record.requirementname,jdbcType=CHAR},
+      </if>
+      <if test="record.cultivationschemeId != null">
+        cultivationscheme_id = #{record.cultivationschemeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.objectiveitems != null">
+        objectiveItems = #{record.objectiveitems,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdUserSn != null">
+        created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="record.modifiedUserSn != null">
+        modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR},
+      </if>
+      <if test="record.requirementdesc != null">
+        requirementdesc = #{record.requirementdesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update requirement
+    set requirementid = #{record.requirementid,jdbcType=INTEGER},
+      requirementname = #{record.requirementname,jdbcType=CHAR},
+      cultivationscheme_id = #{record.cultivationschemeId,jdbcType=INTEGER},
+      objectiveItems = #{record.objectiveitems,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR},
+      requirementdesc = #{record.requirementdesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update requirement
+    set requirementid = #{record.requirementid,jdbcType=INTEGER},
+      requirementname = #{record.requirementname,jdbcType=CHAR},
+      cultivationscheme_id = #{record.cultivationschemeId,jdbcType=INTEGER},
+      objectiveItems = #{record.objectiveitems,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njxzc.tcs.bean.Requirement">
+    update requirement
+    <set>
+      <if test="requirementname != null">
+        requirementname = #{requirementname,jdbcType=CHAR},
+      </if>
+      <if test="cultivationschemeId != null">
+        cultivationscheme_id = #{cultivationschemeId,jdbcType=INTEGER},
+      </if>
+      <if test="objectiveitems != null">
+        objectiveItems = #{objectiveitems,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUserSn != null">
+        created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="modifiedUserSn != null">
+        modified_user_sn = #{modifiedUserSn,jdbcType=CHAR},
+      </if>
+      <if test="requirementdesc != null">
+        requirementdesc = #{requirementdesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where requirementid = #{requirementid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="edu.njxzc.tcs.bean.Requirement">
+    update requirement
+    set requirementname = #{requirementname,jdbcType=CHAR},
+      cultivationscheme_id = #{cultivationschemeId,jdbcType=INTEGER},
+      objectiveItems = #{objectiveitems,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{modifiedUserSn,jdbcType=CHAR},
+      requirementdesc = #{requirementdesc,jdbcType=LONGVARCHAR}
+    where requirementid = #{requirementid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njxzc.tcs.bean.Requirement">
+    update requirement
+    set requirementname = #{requirementname,jdbcType=CHAR},
+      cultivationscheme_id = #{cultivationschemeId,jdbcType=INTEGER},
+      objectiveItems = #{objectiveitems,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{modifiedUserSn,jdbcType=CHAR}
+    where requirementid = #{requirementid,jdbcType=INTEGER}
+  </update>
+  
+      <!-- 自定义-->
+  <select id="selectByCulId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from requirement
+    where cultivationscheme_id = #{cultivationschemeId,jdbcType=INTEGER}
+    order by requirementname
+  </select>
+  
+</mapper>

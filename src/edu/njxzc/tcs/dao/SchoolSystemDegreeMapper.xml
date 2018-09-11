@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.njxzc.tcs.dao.SchoolSystemDegreeMapper">
+  <resultMap id="BaseResultMap" type="edu.njxzc.tcs.bean.SchoolSystemDegree">
+    <id column="schoolsystemdegreeid" jdbcType="INTEGER" property="schoolsystemdegreeid" />
+    <result column="schoolsystem" jdbcType="INTEGER" property="schoolsystem" />
+    <result column="upperyears" jdbcType="INTEGER" property="upperyears" />
+    <result column="loweryears" jdbcType="INTEGER" property="loweryears" />
+    <result column="degree_id" jdbcType="INTEGER" property="degreeId" />
+    <result column="cultivationscheme_id" jdbcType="INTEGER" property="cultivationschemeId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="created_user_sn" jdbcType="CHAR" property="createdUserSn" />
+    <result column="modified_user_sn" jdbcType="CHAR" property="modifiedUserSn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    schoolsystemdegreeid, schoolsystem, upperyears, loweryears, degree_id, cultivationscheme_id, 
+    gmt_create, gmt_modified, created_user_sn, modified_user_sn
+  </sql>
+  <select id="selectByExample" parameterType="edu.njxzc.tcs.bean.SchoolSystemDegreeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from schoolsystemdegree
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from schoolsystemdegree
+    where schoolsystemdegreeid = #{schoolsystemdegreeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from schoolsystemdegree
+    where schoolsystemdegreeid = #{schoolsystemdegreeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.njxzc.tcs.bean.SchoolSystemDegreeExample">
+    delete from schoolsystemdegree
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njxzc.tcs.bean.SchoolSystemDegree">
+    insert into schoolsystemdegree (schoolsystemdegreeid, schoolsystem, 
+      upperyears, loweryears, degree_id, 
+      cultivationscheme_id, gmt_create, gmt_modified, 
+      created_user_sn, modified_user_sn)
+    values (#{schoolsystemdegreeid,jdbcType=INTEGER}, #{schoolsystem,jdbcType=INTEGER}, 
+      #{upperyears,jdbcType=INTEGER}, #{loweryears,jdbcType=INTEGER}, #{degreeId,jdbcType=INTEGER}, 
+      #{cultivationschemeId,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{createdUserSn,jdbcType=CHAR}, #{modifiedUserSn,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njxzc.tcs.bean.SchoolSystemDegree">
+    insert into schoolsystemdegree
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="schoolsystemdegreeid != null">
+        schoolsystemdegreeid,
+      </if>
+      <if test="schoolsystem != null">
+        schoolsystem,
+      </if>
+      <if test="upperyears != null">
+        upperyears,
+      </if>
+      <if test="loweryears != null">
+        loweryears,
+      </if>
+      <if test="degreeId != null">
+        degree_id,
+      </if>
+      <if test="cultivationschemeId != null">
+        cultivationscheme_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="createdUserSn != null">
+        created_user_sn,
+      </if>
+      <if test="modifiedUserSn != null">
+        modified_user_sn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="schoolsystemdegreeid != null">
+        #{schoolsystemdegreeid,jdbcType=INTEGER},
+      </if>
+      <if test="schoolsystem != null">
+        #{schoolsystem,jdbcType=INTEGER},
+      </if>
+      <if test="upperyears != null">
+        #{upperyears,jdbcType=INTEGER},
+      </if>
+      <if test="loweryears != null">
+        #{loweryears,jdbcType=INTEGER},
+      </if>
+      <if test="degreeId != null">
+        #{degreeId,jdbcType=INTEGER},
+      </if>
+      <if test="cultivationschemeId != null">
+        #{cultivationschemeId,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUserSn != null">
+        #{createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="modifiedUserSn != null">
+        #{modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njxzc.tcs.bean.SchoolSystemDegreeExample" resultType="java.lang.Long">
+    select count(*) from schoolsystemdegree
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update schoolsystemdegree
+    <set>
+      <if test="record.schoolsystemdegreeid != null">
+        schoolsystemdegreeid = #{record.schoolsystemdegreeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolsystem != null">
+        schoolsystem = #{record.schoolsystem,jdbcType=INTEGER},
+      </if>
+      <if test="record.upperyears != null">
+        upperyears = #{record.upperyears,jdbcType=INTEGER},
+      </if>
+      <if test="record.loweryears != null">
+        loweryears = #{record.loweryears,jdbcType=INTEGER},
+      </if>
+      <if test="record.degreeId != null">
+        degree_id = #{record.degreeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cultivationschemeId != null">
+        cultivationscheme_id = #{record.cultivationschemeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdUserSn != null">
+        created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="record.modifiedUserSn != null">
+        modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update schoolsystemdegree
+    set schoolsystemdegreeid = #{record.schoolsystemdegreeid,jdbcType=INTEGER},
+      schoolsystem = #{record.schoolsystem,jdbcType=INTEGER},
+      upperyears = #{record.upperyears,jdbcType=INTEGER},
+      loweryears = #{record.loweryears,jdbcType=INTEGER},
+      degree_id = #{record.degreeId,jdbcType=INTEGER},
+      cultivationscheme_id = #{record.cultivationschemeId,jdbcType=INTEGER},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{record.createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{record.modifiedUserSn,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njxzc.tcs.bean.SchoolSystemDegree">
+    update schoolsystemdegree
+    <set>
+      <if test="schoolsystem != null">
+        schoolsystem = #{schoolsystem,jdbcType=INTEGER},
+      </if>
+      <if test="upperyears != null">
+        upperyears = #{upperyears,jdbcType=INTEGER},
+      </if>
+      <if test="loweryears != null">
+        loweryears = #{loweryears,jdbcType=INTEGER},
+      </if>
+      <if test="degreeId != null">
+        degree_id = #{degreeId,jdbcType=INTEGER},
+      </if>
+      <if test="cultivationschemeId != null">
+        cultivationscheme_id = #{cultivationschemeId,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUserSn != null">
+        created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      </if>
+      <if test="modifiedUserSn != null">
+        modified_user_sn = #{modifiedUserSn,jdbcType=CHAR},
+      </if>
+    </set>
+    where schoolsystemdegreeid = #{schoolsystemdegreeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njxzc.tcs.bean.SchoolSystemDegree">
+    update schoolsystemdegree
+    set schoolsystem = #{schoolsystem,jdbcType=INTEGER},
+      upperyears = #{upperyears,jdbcType=INTEGER},
+      loweryears = #{loweryears,jdbcType=INTEGER},
+      degree_id = #{degreeId,jdbcType=INTEGER},
+      cultivationscheme_id = #{cultivationschemeId,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      created_user_sn = #{createdUserSn,jdbcType=CHAR},
+      modified_user_sn = #{modifiedUserSn,jdbcType=CHAR}
+    where schoolsystemdegreeid = #{schoolsystemdegreeid,jdbcType=INTEGER}
+  </update>
+<!-- 自定义 -->
+ <select id="SelectSSDByCultivationId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from schoolsystemdegree
+    where cultivationscheme_id = #{cultivationschemeId,jdbcType=INTEGER}
+  </select>
+</mapper>

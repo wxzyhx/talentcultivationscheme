@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.njxzc.tcs.dao.ChildCourseClassificationMapper">
+  <resultMap id="BaseResultMap" type="edu.njxzc.tcs.bean.ChildCourseClassification">
+    <id column="childcourseclassificationid" jdbcType="INTEGER" property="childcourseclassificationid" />
+    <result column="childcourseclassificationname" jdbcType="CHAR" property="childcourseclassificationname" />
+    <result column="childcourseclassifcationdesc" jdbcType="VARCHAR" property="childcourseclassifcationdesc" />
+    <result column="courseclassifcationdesc" jdbcType="VARCHAR" property="courseclassifcationdesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    childcourseclassificationid, childcourseclassificationname, childcourseclassifcationdesc, 
+    courseclassifcationdesc
+  </sql>
+  <select id="selectByExample" parameterType="edu.njxzc.tcs.bean.ChildCourseClassificationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from childcourseclassification
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from childcourseclassification
+    where childcourseclassificationid = #{childcourseclassificationid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from childcourseclassification
+    where childcourseclassificationid = #{childcourseclassificationid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.njxzc.tcs.bean.ChildCourseClassificationExample">
+    delete from childcourseclassification
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njxzc.tcs.bean.ChildCourseClassification">
+    insert into childcourseclassification (childcourseclassificationid, childcourseclassificationname, 
+      childcourseclassifcationdesc, courseclassifcationdesc
+      )
+    values (#{childcourseclassificationid,jdbcType=INTEGER}, #{childcourseclassificationname,jdbcType=CHAR}, 
+      #{childcourseclassifcationdesc,jdbcType=VARCHAR}, #{courseclassifcationdesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njxzc.tcs.bean.ChildCourseClassification">
+    insert into childcourseclassification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="childcourseclassificationid != null">
+        childcourseclassificationid,
+      </if>
+      <if test="childcourseclassificationname != null">
+        childcourseclassificationname,
+      </if>
+      <if test="childcourseclassifcationdesc != null">
+        childcourseclassifcationdesc,
+      </if>
+      <if test="courseclassifcationdesc != null">
+        courseclassifcationdesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="childcourseclassificationid != null">
+        #{childcourseclassificationid,jdbcType=INTEGER},
+      </if>
+      <if test="childcourseclassificationname != null">
+        #{childcourseclassificationname,jdbcType=CHAR},
+      </if>
+      <if test="childcourseclassifcationdesc != null">
+        #{childcourseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="courseclassifcationdesc != null">
+        #{courseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njxzc.tcs.bean.ChildCourseClassificationExample" resultType="java.lang.Long">
+    select count(*) from childcourseclassification
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update childcourseclassification
+    <set>
+      <if test="record.childcourseclassificationid != null">
+        childcourseclassificationid = #{record.childcourseclassificationid,jdbcType=INTEGER},
+      </if>
+      <if test="record.childcourseclassificationname != null">
+        childcourseclassificationname = #{record.childcourseclassificationname,jdbcType=CHAR},
+      </if>
+      <if test="record.childcourseclassifcationdesc != null">
+        childcourseclassifcationdesc = #{record.childcourseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseclassifcationdesc != null">
+        courseclassifcationdesc = #{record.courseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update childcourseclassification
+    set childcourseclassificationid = #{record.childcourseclassificationid,jdbcType=INTEGER},
+      childcourseclassificationname = #{record.childcourseclassificationname,jdbcType=CHAR},
+      childcourseclassifcationdesc = #{record.childcourseclassifcationdesc,jdbcType=VARCHAR},
+      courseclassifcationdesc = #{record.courseclassifcationdesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njxzc.tcs.bean.ChildCourseClassification">
+    update childcourseclassification
+    <set>
+      <if test="childcourseclassificationname != null">
+        childcourseclassificationname = #{childcourseclassificationname,jdbcType=CHAR},
+      </if>
+      <if test="childcourseclassifcationdesc != null">
+        childcourseclassifcationdesc = #{childcourseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="courseclassifcationdesc != null">
+        courseclassifcationdesc = #{courseclassifcationdesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where childcourseclassificationid = #{childcourseclassificationid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njxzc.tcs.bean.ChildCourseClassification">
+    update childcourseclassification
+    set childcourseclassificationname = #{childcourseclassificationname,jdbcType=CHAR},
+      childcourseclassifcationdesc = #{childcourseclassifcationdesc,jdbcType=VARCHAR},
+      courseclassifcationdesc = #{courseclassifcationdesc,jdbcType=VARCHAR}
+    where childcourseclassificationid = #{childcourseclassificationid,jdbcType=INTEGER}
+  </update>
+  
+<!-- 自定义 -->
+<select id="selectByClassificationDesc" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from childcourseclassification
+    where courseclassifcationdesc = #{courseclassifcationdesc,jdbcType=VARCHAR}
+  </select>
+
+</mapper>
